@@ -1,8 +1,7 @@
 package topic5.task1;
 
 import java.util.List;
-
-public class Fraction {
+class Fraction {
     void printFr(ПростаяДробь fr){
         if (fr != null)
         System.out.println(fr);

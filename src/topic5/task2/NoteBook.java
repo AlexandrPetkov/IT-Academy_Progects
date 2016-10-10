@@ -2,10 +2,7 @@ package topic5.task2;
 
 import java.util.ArrayList;
 
-/**
- * Created by alexandr on 06.10.16.
- */
-public class NoteBook {
+class NoteBook {
     ArrayList<Note> notes = new ArrayList<>();
     void addNote(Note note){
         notes.add(note);

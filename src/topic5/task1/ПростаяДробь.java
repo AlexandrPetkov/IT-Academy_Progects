@@ -1,6 +1,6 @@
 package topic5.task1;
 
-public class ПростаяДробь {
+class ПростаяДробь {
     int numerator;
     int denominator;
 
