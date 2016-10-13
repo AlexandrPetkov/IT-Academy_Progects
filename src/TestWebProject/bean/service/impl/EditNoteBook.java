@@ -1,10 +1,10 @@
 package TestWebProject.bean.service.impl;
 
-import TestWebProject.bean.bean.entity.Note;
-import TestWebProject.bean.bean.entity.NoteBook;
+import TestWebProject.bean.dao.DAOFactory;
+import TestWebProject.bean.dao.NBDao;
+import TestWebProject.bean.dao.exception.DAOException;
 import TestWebProject.bean.service.EditNoteBookService;
 import TestWebProject.bean.service.exception.ServiceException;
-import TestWebProject.bean.source.NoteBookProvider;
 
 import java.util.Date;
 
@@ -16,7 +16,13 @@ public class EditNoteBook implements EditNoteBookService{
             throw new ServiceException("message");
         }
 
-        add(note, new Date());
+        DAOFactory factory = DAOFactory.getInstance();
+        NBDao dao = factory.getNbDao();
+        try {
+            dao.addNote(note, new Date());
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
 
     }
 
@@ -30,26 +36,12 @@ public class EditNoteBook implements EditNoteBookService{
             throw new ServiceException("message 2");
         }
 
-        add2(note, date);
-    }
-
-    private void add(String note, Date d){
-        Note newNote = new Note();
-        newNote.setNote(note);
-        newNote.setDate(d);
-
-        NoteBookProvider source = NoteBookProvider.getInstance();
-        NoteBook noteBook = source.getNoteBook();
-        noteBook.addNote(newNote);
-    }
-
-    private void add2(String note, Date d){
-        Note newNote = new Note();
-        newNote.setNote(note);
-        newNote.setDate(d);
-
-        NoteBookProvider source = NoteBookProvider.getInstance();
-        NoteBook noteBook = source.getNoteBook();
-        noteBook.addNote(newNote);
+        DAOFactory factory = DAOFactory.getInstance();
+        NBDao dao = factory.getNbDao();
+        try {
+            dao.addNote(note, date);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
     }
 }
