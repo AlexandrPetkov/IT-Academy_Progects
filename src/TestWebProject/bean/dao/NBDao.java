@@ -8,5 +8,5 @@ import java.util.Date;
 public interface NBDao {
 
     void addNote (String message, Date date) throws DAOException;
-    Note findNote () throws DAOException;
+    Note findNote (String text) throws DAOException;
 }

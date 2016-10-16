@@ -2,6 +2,7 @@ package TestWebProject.bean.controller;
 
 import TestWebProject.bean.command.Command;
 import TestWebProject.bean.command.impl.AddNewNote;
+import TestWebProject.bean.command.impl.DeleteNote;
 import TestWebProject.bean.command.impl.ReturnAllNotes;
 
 import java.util.HashMap;
@@ -13,6 +14,7 @@ class CommandProvider {
     CommandProvider() {
         commands.put("ADD_NEW_NOTE", new AddNewNote());
         commands.put("RETURN_ALL_NOTES", new ReturnAllNotes());
+        commands.put("DELETE_NOTE", new DeleteNote());
     }
 
     public Command getCommand(String commandName){

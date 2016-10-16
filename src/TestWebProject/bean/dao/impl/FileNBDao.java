@@ -19,16 +19,16 @@ public class FileNBDao implements NBDao {
     }
 
     @Override
-    public Note findNote() throws DAOException {
+    public Note findNote(String text) throws DAOException {
 
-
-        BufferedReader reader = null;
+        FileReader reader = null;
+        BufferedReader br = null;
         try {
-            reader = new BufferedReader(new FileReader(SOURCE));
-
+            reader = new FileReader(SOURCE);
+            br = new BufferedReader(reader);
             String noteFromFile;
 
-            noteFromFile = reader.readLine();
+            noteFromFile = br.readLine();
             while (noteFromFile != null){
 
             }
@@ -38,9 +38,9 @@ public class FileNBDao implements NBDao {
         } catch (IOException e){
             throw new DAOException(e);
         } finally {
-            if (reader != null){
+            if (br != null){
                 try {
-                    reader.close();
+                    br.close();
                 } catch (IOException e) {/* logging */}
             }
         }

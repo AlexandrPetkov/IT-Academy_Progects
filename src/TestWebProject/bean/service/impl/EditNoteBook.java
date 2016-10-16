@@ -44,4 +44,9 @@ public class EditNoteBook implements EditNoteBookService{
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public void deleteNote(String note) throws ServiceException {
+
+    }
 }

@@ -11,12 +11,13 @@ import java.io.Reader;
 import java.util.Date;
 
 public class ConsoleView {
+
     public static void main(String[] args) {
         Controller controller = new Controller();
         AddNoteRequest addNoteReq = new AddNoteRequest();
         StringBuilder commands = new StringBuilder("");
         try {
-            Reader reader = new FileReader("test.txt");
+            Reader reader = new FileReader("resources/test.txt");
             while (reader.ready()){
                 commands.append((char) reader.read());
             }

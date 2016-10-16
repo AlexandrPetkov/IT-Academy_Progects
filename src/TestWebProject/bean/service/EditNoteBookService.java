@@ -8,4 +8,5 @@ public interface EditNoteBookService {
 
     void addNote(String note) throws ServiceException;
     void addNote(String note, Date date) throws ServiceException;
+    void deleteNote(String note) throws ServiceException;
 }
