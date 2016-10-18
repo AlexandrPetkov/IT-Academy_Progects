@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class ConsoleView {
 
     public static void main(String[] args) {
+
         Controller controller = new Controller();
         Boolean exit = false;
         Scanner scanner = new Scanner(System.in);
