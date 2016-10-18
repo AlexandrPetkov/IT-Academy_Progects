@@ -1,2 +1,0 @@
-ADD_NEW_NOTE : my first note
-ADD_NEW_NOTE : my second note

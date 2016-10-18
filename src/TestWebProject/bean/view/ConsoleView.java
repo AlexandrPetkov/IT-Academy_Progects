@@ -1,49 +1,78 @@
 package TestWebProject.bean.view;
 
 import TestWebProject.bean.bean.AddNoteRequest;
+import TestWebProject.bean.bean.Request;
 import TestWebProject.bean.bean.Response;
 import TestWebProject.bean.controller.Controller;
+import TestWebProject.bean.bean.entity.Note;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
 import java.util.Date;
+import java.util.List;
+import java.util.Scanner;
 
 public class ConsoleView {
 
     public static void main(String[] args) {
         Controller controller = new Controller();
+        Boolean exit = false;
+        Scanner scanner = new Scanner(System.in);
+
+        while (!exit) {
+            Menu.printMenu();
+
+            switch (scanner.nextLine()) {
+                case "1":
+                    System.out.print("Введите заметку: ");
+                    addNewNote(scanner.nextLine(), controller);
+                    break;
+                case "2": showAllNotes(controller);
+                    break;
+                case "3":
+                    break;
+                case "0":
+                    exit = true;
+                    break;
+                default:
+                    System.out.println("Чет не то вы ввели");
+            }
+        }
+    }
+
+
+    private static void addNewNote(String noteText, Controller controller){
         AddNoteRequest addNoteReq = new AddNoteRequest();
-        StringBuilder commands = new StringBuilder("");
-        try {
-            Reader reader = new FileReader("resources/test.txt");
-            while (reader.ready()){
-                commands.append((char) reader.read());
-            }
-        } catch (FileNotFoundException e){
-            System.out.println("Траблы с файлом");
-        }catch (IOException e){
-            System.out.println("Наконец-то увидел IOException");
+        addNoteReq.setCommandName("ADD_NEW_NOTE");
+        addNoteReq.setNote(noteText);
+        addNoteReq.setDate(new Date());
+
+        Response response = controller.doAction(addNoteReq);
+
+        if (!response.isErrorStatus()) {
+            System.out.println(response.getSimpleMessage());
+        } else {
+            System.out.println(response.getErrorMessage());
         }
+    }
 
-        String[] command = commands.toString().split("\n");
 
-        for (int i = 0; i < command.length; i++) {
-            if (command[i].contains(":"))
-            addNoteReq.setCommandName(command[i].substring(0, command[i].indexOf(":")-1));
-            addNoteReq.setNote(command[i].substring(command[i].indexOf(":")+1));
-            addNoteReq.setDate(new Date());
+    private static void showAllNotes(Controller controller){
+        Request request = new Request();
+        request.setCommandName("RETURN_ALL_NOTES");
 
-            Response response = controller.doAction(addNoteReq);
+        Response response = controller.doAction(request);
 
-            if (!response.isErrorStatus()) {
-                System.out.println(response.getSimpleMessage());
-            } else {
-                System.out.println(response.getErrorMessage());
+        if (!response.isErrorStatus()) {
+            List<Note> notes = response.getNotes();
+
+            for (Note note:
+                    notes) {
+                System.out.println(note.getNote() + ", " + note.getDate());
             }
-
+        } else {
+            System.out.println(response.getErrorMessage());
         }
+    }
+
 
 
 /*
@@ -93,6 +122,4 @@ public class ConsoleView {
             System.out.println(response.getErrorMessage());
         }
         */
-    }
-
 }

@@ -8,6 +8,11 @@ public class Note {
 
     public Note() {}
 
+    public Note(String note, Date date) {
+        this.note = note;
+        this.date = date;
+    }
+
     public String getNote() {
         return note;
     }
