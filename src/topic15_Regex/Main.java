@@ -12,9 +12,9 @@ public class Main {
 
     public static void main(String[] args) {
         StringBuilder sb = new StringBuilder();
-        try (FileReader reader = new FileReader("sdv")){
+        try (FileReader reader = new FileReader("findAllNotes")){
                 while (reader.ready()){
-                    sb.append(reader.read());
+                    sb.append((char) reader.read());
                 }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -26,6 +26,5 @@ public class Main {
         }
         System.out.println();
         System.out.println(EmailsValidationClass.validateEmails(sb.toString()));
-
     }
 }
