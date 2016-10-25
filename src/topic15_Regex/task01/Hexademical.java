@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Hexademical {
-    public static List<String> findHexademical(String str){
+    public static ArrayList<String> findHexademical(String str){
         ArrayList<String> hexademical = new ArrayList<>();
 
         Pattern pattern = Pattern.compile("0x(\\d|[A-F])+");
