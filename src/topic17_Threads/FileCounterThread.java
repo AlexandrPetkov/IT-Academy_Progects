@@ -3,40 +3,28 @@ package topic17_Threads;
 import java.io.File;
 
 public class FileCounterThread extends Thread {
-    File files;
-    String[] names;
-    int count;
-
-    public FileCounterThread(File files) {
-        this.files = files;
-        names = files.list();
-        count = names.length;
-    }
+    File files = new File("resources");
+    int count = files.list().length;
 
     @Override
     public void run() {
 
-        synchronized (files) {
             while (true) {
-                try {
-                    files.wait(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                files = new File("resources");
 
-                for (int i = 0; i < count; i++) {
-                    System.out.println(names[i]);
-                }
-
-
-                if (names.length - count != 0) {
-                    count = names.length;
-                    System.out.println("Список файлов изменился");
+                if (files.list().length - count != 0) {
+                    count = files.list().length;
+                    System.out.println("Кол-во файлов изменилось");
                 } else {
                     System.out.println("Ничего не изменилось");
                 }
-            }
-        }
 
+
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
     }
 }
